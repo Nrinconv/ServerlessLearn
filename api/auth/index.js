@@ -8,10 +8,11 @@ const isAuthenticated = (req, res, next) => {
     }
     jwt.verify(token, 'mi-secreto', (err, decoded) => {
         const { _id } = decoded
-        Users.findOne({ _id }).exec().then( user => {
-            req.user = user
-            next()
-        })
+        Users.findOne({ _id }).exec()
+            .then( user => {
+                req.user = user
+                next()
+            })
     })
 }
 
@@ -24,6 +25,6 @@ const hasRoles = roles => (req, res, next) => {
 
 module.exports = {
     isAuthenticated,
-    hasRole,
+    hasRoles,
 }
 
